@@ -874,7 +874,12 @@ inline int GeniePi::_genieWriteMagicBytes(int magic_index, unsigned int *byteArr
 {
     unsigned int *p;
     unsigned char checksum;
-    int len = (int)(sizeof(byteArray) / sizeof(int));
+    int len = 0;
+
+    // byteArray null (0) ile biten bir dizi; gercek eleman sayisini
+    // pointer boyutundan degil, diziyi gezerek buluyoruz.
+    for (p = byteArray; *p; ++p)
+        ++len;
 
     if (len > 255)
         return -1;
@@ -908,7 +913,12 @@ inline int GeniePi::_genieWriteDoubleBytes(int magic_index, unsigned int *double
 {
     unsigned int *p;
     unsigned char checksum;
-    int len = (int)(sizeof(doubleByteArray) / sizeof(int));
+    int len = 0;
+
+    // doubleByteArray null (0) ile biten bir dizi; gercek eleman sayisini
+    // pointer boyutundan degil, diziyi gezerek buluyoruz.
+    for (p = doubleByteArray; *p; ++p)
+        ++len;
 
     if (len > 255)
         return -1;
